@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Student Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      width: 100vw;
+    }
+
+    table {
+      background-color: MistyRose;
+      margin: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+      border-radius: 15px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      margin-top: 15px;
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: white;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+
+    input.invalid,
+    select.invalid,
+    textarea.invalid {
+      border: 1px solid red;
+    }
+
+    input.valid,
+    select.valid,
+    textarea.valid {
+      border: 1px solid black;
+    }
+
+    #message,
+    #messagePass,
+    #messageMail,
+    #messageGender,
+    #messageDept,
+    #messageRoll,
+    #messageFullname,
+    #messageFather,
+    #messageCountry,
+    #messageState,
+    #messageCity,
+    #messageAddress,
+    #messageDOB,
+    #messageCourse {
+      font-size: 12px;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .error-msg {
+      color: red;
+    }
+
+    .success-msg {
+      color: green;
+    }
+    </style>
+  <link rel="shortcut icon" href="static/registration-form.png" type="image/x-icon">
+</head>
+
+<body>
+  <div id="header-box">
+    <h1>Student Registration Form</h1>
+  </div>
+  <form id="registerForm">
+    <table cellpadding="10">
+      <tr>
+        <td>Roll no. :</td>
+        <td>
+          <input type="number" name="rollNum" id="rollNum" />
+          <span id="messageRoll"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Full name :</td>
+        <td>
+          <input type="text" name="fullname" id="fullname" size="50" />
+          <span id="messageFullname"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Father's name :</td>
+        <td>
+          <input type="text" name="fatherName" id="fatherName" size="50" />
+          <span id="messageFather"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Date of birth :</td>
+        <td><input type="date" name="dob" id="dob" />
+          <span id="messageDOB"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Mobile no. :</td>
+        <td>
+          <input type="tel" id="mobileNumberInput" name="mobNum" placeholder="Enter mobile number" maxlength="10" />
+          <span id="message"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Email id :</td>
+        <td>
+          <input type="email" name="emailID" id="mail" size="50" />
+          <span id="messageMail"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Password :</td>
+        <td>
+          <input type="password" name="password" id="passinput" />
+          <span id="messagePass"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Gender :</td>
+        <td>
+          <input type="radio" name="gender" value="Male" /> Male
+          <input type="radio" name="gender" value="Female" /> Female
+          <input type="radio" name="gender" value="Other" /> Other
+          <span id="messageGender"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Department :</td>
+        <td>
+          <input type="checkbox" name="dept" value="CSE" /> CSE
+          <input type="checkbox" name="dept" value="IT" /> IT
+          <input type="checkbox" name="dept" value="ECE" /> ECE
+          <input type="checkbox" name="dept" value="Civil" /> Civil
+          <input type="checkbox" name="dept" value="Mech" /> Mech
+          <span id="messageDept"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Course :</td>
+        <td>
+          <select name="course" id="course">
+            <option value="">-- Select Course --</option>
+            <option value="Python">Python</option>
+            <option value="Node">Node</option>
+            <option value="Java">Java</option>
+            <option value="React">React</option>
+            <option value="PHP">PHP</option>
+          </select>
+          <span id="messageCourse"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Country :</td>
+        <td>
+          <select class="country" name="country" id="country">
+            <option value="">Select Country</option>
+          </select>
+          <span id="messageCountry"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>State :</td>
+        <td>
+          <select class="state" name="state" id="state">
+            <option value="">Select State</option>
+          </select>
+          <span id="messageState"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>City :</td>
+        <td>
+          <select class="city" name="city" id="city">
+            <option value="">Select City</option>
+          </select>
+          <span id="messageCity"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Address :</td>
+        <td>
+          <textarea name="address" id="address" cols="48" rows="5"></textarea>
+          <span id="messageAddress"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Content (jpg, png, jpeg, pdf):</td>
+        <td>
+          <input type="file" name="content" id="content" accept=".jpg,.jpeg,.png,.pdf" />
+          <span id="messageContent"></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" align="center">
+          <input type="submit" value="Register" id="register" />
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" align="center">
+          <div id="responseMsg" style="color: red;"></div>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <script>
+
+    // const baseURL = "http://127.0.0.1:8000";
+
+        window.onload = () => {
+            fetch(`/countries`)
+                .then(res => res.json())
+                .then(data => {
+                    const countrySelect = document.getElementById("country");
+                    data.forEach(country => {
+                        const opt = document.createElement("option");
+                        opt.value = country.id;
+                        opt.textContent = country.name;
+                        countrySelect.appendChild(opt);
+                    });
+                });
+        };
+
+        document.getElementById("country").addEventListener("change", function () {
+    const countryId = this.value;
+    const stateSelect = document.getElementById("state");
+    stateSelect.innerHTML = '<option value="">select state</option>';
+    stateSelect.disabled = false;
+    const citySelect = document.getElementById("city");
+    citySelect.innerHTML = '<option value="">select city</option>';
+    citySelect.disabled = false;
+
+    fetch(`/states/${countryId}`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(state => {
+                const opt = document.createElement("option");
+                opt.value = state.id;
+                opt.textContent = state.name;
+                stateSelect.appendChild(opt);
+            });
+        });
+});
+
+        document.getElementById("state").addEventListener("change", function () {
+    const stateId = this.value;
+    const citySelect = document.getElementById("city");
+    citySelect.innerHTML = '<option value="">select city</option>';
+    citySelect.disabled = false;
+
+    fetch(`/cities/${stateId}`)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(city => {
+                const opt = document.createElement("option");
+                opt.value = city.id;
+                opt.textContent = city.name;
+                citySelect.appendChild(opt);
+            });
+        });
+});
+
+    const form = document.getElementById("registerForm");
+    const responseMsg = document.getElementById("responseMsg");
+
+    function validateDOB() {
+      const dobInput = document.getElementById("dob");
+      const dobValue = dobInput.value;
+      const msgId = "dobMessage";
+
+
+
+      let old = document.getElementById(msgId);
+      if (!old) {
+        old = document.createElement("span");
+        old.id = msgId;
+        dobInput.parentNode.appendChild(old);
+      }
+
+      if (!dobValue) {
+        markInvalid(dobInput, msgId, "* Date of Birth is required");
+        return false;
+      }
+
+      const selectedDate = new Date(dobValue);
+      const maxDate = new Date("2007-12-31");
+
+      if (selectedDate > maxDate) {
+        markInvalid(dobInput, msgId, "* Birth year must be 2007 or earlier");
+        return false;
+      } else {
+        markValid(dobInput, msgId, "");
+        return true;
+      }
+    }
+
+
+    function markInvalid(el, msgId, message) {
+      el.classList.add("invalid");
+      el.classList.remove("valid");
+      if (msgId) {
+        document.getElementById(msgId).innerText = message;
+        document.getElementById(msgId).className = "error-msg";
+        document.getElementById(msgId).style.fontSize="12px";
+      }
+    }
+
+    function markValid(el, msgId, message) {
+      el.classList.remove("invalid");
+      el.classList.add("valid");
+      if (msgId) {
+        document.getElementById(msgId).innerText = message || "";
+        document.getElementById(msgId).className = "success-msg";
+      }
+    }
+
+    function validateRequiredField(id, msgId, label) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        markInvalid(el, msgId, `* ${label} is required`);
+        return false;
+      } else {
+        markValid(el, msgId, ``);
+        return true;
+      }
+    }
+
+    function validateMobileNumber() {
+      const el = document.getElementById('mobileNumberInput');
+      const val = el.value.trim();
+      const pattern = /^[6-9]\d{9}$/;
+
+      if (!val) return markInvalid(el, "message", "* Mobile number is required"), false;
+      if (pattern.test(val)) {
+        markValid(el, "message", " Valid Number");
+        return true;
+      } else {
+        markInvalid(el, "message", "* Invalid 10-digit mobile number.");
+        return false;
+      }
+    }
+
+    function validatePassword() {
+      const el = document.getElementById('passinput');
+      const val = el.value.trim();
+      const pattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).{8,}$/;
+
+      if (!val) return markInvalid(el, "messagePass", "* Password is required"), false;
+      if (pattern.test(val)) {
+        markValid(el, "messagePass", "");
+        return true;
+      } else {
+        markInvalid(el, "messagePass", "* Must include upper/lowercase, number, special char.");
+        return false;
+      }
+    }
+
+    function validateMail() {
+      const el = document.getElementById('mail');
+      const val = el.value.trim();
+      const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+      if (!val) return markInvalid(el, "messageMail", "* Email is required"), false;
+      if (pattern.test(val)) {
+        markValid(el, "messageMail", "");
+        return true;
+      } else {
+        markInvalid(el, "messageMail", "* Invalid Email");
+        return false;
+      }
+    }
+
+    function validateForm() {
+      let isValid = true;
+
+      isValid &= validateRequiredField("rollNum", "messageRoll", "Roll Number");
+      isValid &= validateRequiredField("fullname", "messageFullname", "Full Name");
+      isValid &= validateRequiredField("fatherName", "messageFather", "Father's Name");
+      isValid &= validateDOB();
+      isValid &= validateMobileNumber();
+      isValid &= validateMail();
+      isValid &= validatePassword();
+      isValid &= validateRequiredField("course", "messageCourse", "Course");
+      isValid &= validateRequiredField("country", "messageCountry", "Country");
+      isValid &= validateRequiredField("state", "messageState", "State");
+      isValid &= validateRequiredField("city", "messageCity", "City");
+      isValid &= validateRequiredField("address", "messageAddress", "Address");
+
+      const genderRadios = document.querySelectorAll("input[name='gender']");
+      const genderMsg = document.getElementById("messageGender");
+      if (![...genderRadios].some(r => r.checked)) {
+        genderRadios.forEach(r => r.classList.add("invalid"));
+        genderMsg.innerText = "* Gender is required";
+        genderMsg.className = "error-msg";
+        isValid = false;
+      } else {
+        genderRadios.forEach(r => r.classList.remove("invalid"));
+        genderMsg.innerText = "";
+        genderMsg.className = "success-msg";
+      }
+
+      const deptChecks = document.querySelectorAll("input[name='dept']:checked");
+      const deptMsg = document.getElementById("messageDept");
+      if (deptChecks.length === 0) {
+        document.querySelectorAll("input[name='dept']").forEach(cb => cb.classList.add("invalid"));
+        deptMsg.innerText = "* At least one department must be selected";
+        deptMsg.className = "error-msg";
+        isValid = false;
+      } else {
+        document.querySelectorAll("input[name='dept']").forEach(cb => cb.classList.remove("invalid"));
+        deptMsg.innerText = "";
+        deptMsg.className = "success-msg";
+      }
+
+      return !!isValid;
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      responseMsg.innerText = "";
+
+      if (!validateForm()) {
+        responseMsg.style.color = "red";
+        responseMsg.style.fontSize = "12px";
+        responseMsg.innerText = "Please correct the highlighted fields.";
+        return;
+      }
+
+      const stateSelect = document.getElementById("state");
+      const citySelect = document.getElementById("city");
+      stateSelect.disabled = false;
+      citySelect.disabled = false;
+
+      const formData = new FormData(form);
+      const fileInput = document.getElementById("content");
+      let filePath = "";
+
+      if (fileInput.files.length > 0) {
+        const fileData = new FormData();
+        fileData.append("content", fileInput.files[0]);
+        try {
+          const uploadRes = await fetch("/upload", {
+            method: "POST",
+            body: fileData
+          });
+          const uploadResult = await uploadRes.json();
+          if (uploadRes.ok && uploadResult.path) {
+            filePath = uploadResult.path;
+          } else {
+            responseMsg.innerText = "File upload failed: " + (uploadResult.detail || "Unknown error");
+            return;
+          }
+        } catch (err) {
+          responseMsg.innerText = "File upload error: " + err.message;
+          return;
+        }
+      }
+
+      
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        if (key === "dept") {
+          if (!jsonData.dept) jsonData.dept = [];
+          jsonData.dept.push(value);
+        } else if (["country", "state", "city", "rollNum"].includes(key)) {
+          jsonData[key] = Number(value);
+        } else if (key !== "content") {
+          jsonData[key] = value;
+        }
+      });
+      jsonData["content"] = filePath || "";
+
+      try {
+        const res = await fetch("/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(jsonData)
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          responseMsg.style.color = "green";
+          responseMsg.innerText = "Registered Successfully! Redirecting to login...";
+          setTimeout(() => {
+            window.location.href = "/loginform";
+          }, 1500);
+          form.reset();
+          document.querySelectorAll(".valid, .invalid").forEach(el => el.classList.remove("valid", "invalid"));
+          stateSelect.disabled = true;
+          citySelect.disabled = true;
+        } else {
+          const detail = Array.isArray(result.detail)
+            ? result.detail.map(d => d.msg).join(", ")
+            : result.detail;
+          responseMsg.style.color = "red";
+          responseMsg.innerText = "Server Error: " + detail;
+        }
+      } catch (err) {
+        responseMsg.innerText = "Network Error: " + err.message;
+      }
+    });
+  </script>
+</body>
+
+</html>

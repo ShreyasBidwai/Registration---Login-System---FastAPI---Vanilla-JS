@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Login Form</title>
+  <link rel="shortcut icon" href="static/registration-form.png" type="image/x-icon" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: MistyRose;
+      padding: 2rem;
+      border: 1px solid black;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;  
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 0.5rem;
+      font-size: 16px;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #555;
+    }
+
+    .message {
+      font-size: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .error-msg {
+      color: red;
+    }
+
+    .success-msg {
+      color: green;
+    }
+
+    input[type="submit"] {
+      width: 50%;
+      padding: 7px;
+      margin-top: 10px;
+      position: relative;
+      left: 25%;
+      margin-right: 25%;
+      font-size: 16px;
+      background-color: white;
+      border: 1px solid black;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #f9dada;
+      transform: scale(1.03);
+    }
+
+    #responseMsg {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h1>Login Form</h1>
+    <form id="registerForm">
+      <label for="mail">Email ID:</label>
+      <input type="email" name="emailID" id="mail" />
+      <span id="messageMail" class="message"></span>
+
+      <label for="passinput">Password:</label>
+      <input type="password" name="password" id="passinput"/>
+      <span id="messagePass" class="message"></span>
+
+      <input type="submit" value="Register" id="register" />
+
+      <div id="responseMsg" class="error-msg"></div>
+    </form>
+  </div>
+
+  <script>
+
+    const form = document.getElementById("registerForm");
+    const responseMsg = document.getElementById("responseMsg");
+
+
+
+    function markInvalid(el, msgId, message) {
+      el.classList.add("invalid");
+      el.classList.remove("valid");
+      if (msgId) {
+        document.getElementById(msgId).innerText = message;
+        document.getElementById(msgId).className = "error-msg";
+        document.getElementById(msgId).style.fontSize="12px";
+      }
+    }
+
+    function markValid(el, msgId, message) {
+      el.classList.remove("invalid");
+      el.classList.add("valid");
+      if (msgId) {
+        document.getElementById(msgId).innerText = message || "";
+        document.getElementById(msgId).className = "success-msg";
+      }
+    }
+
+    function validateRequiredField(id, msgId, label) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        markInvalid(el, msgId, `* ${label} is required`);
+        return false;
+      } else {
+        markValid(el, msgId, ``);
+        return true;
+      }
+    }
+ function validateForm() {
+      let isValid = true;
+
+      isValid &= validateMail();
+      isValid &= validatePassword();
+
+      return isValid;
+    }
+
+    function validateMail() {
+      const el = document.getElementById('mail');
+      const val = el.value.trim();
+      const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+      if (!val) return markInvalid(el, "messageMail", "* Email is required"), false;
+      if (pattern.test(val)) {
+        markValid(el, "messageMail", "");
+        return true;
+      } else {
+        markInvalid(el, "messageMail", "* Invalid Email");
+        return false;
+      }
+    }
+
+    function validatePassword() {
+      const el = document.getElementById('passinput');
+      const val = el.value.trim();
+      if (!val) {
+        markInvalid(el, "messagePass", "* Password is required");
+        return false;
+      } else {
+        markValid(el, "messagePass", "");
+        return true;
+      }
+    }
+
+
+     form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      responseMsg.innerText = "";
+
+      if (!validateForm()) {
+        responseMsg.style.color = "red";
+        responseMsg.style.fontSize = "12px";
+        responseMsg.innerText = "Please correct the highlighted fields.";
+        return;
+      }
+
+
+      const emailID = document.getElementById('mail').value.trim();
+      const password = document.getElementById('passinput').value.trim();
+      const loginData = { emailID, password };
+
+      try {
+        const res = await fetch("/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginData)
+        });
+        const result = await res.json();
+        if (res.ok && result.success) {
+          window.location.href = `/loginSuccess?rollNum=${encodeURIComponent(result.rollNum)}&fullname=${encodeURIComponent(result.fullname)}`;
+        } else {
+          const detail = Array.isArray(result.detail)
+            ? result.detail.map(d => d.msg).join(", ")
+            : result.detail;
+          responseMsg.style.color = "red";
+          responseMsg.innerText = "Login Failed: " + detail;
+        }
+      } catch (err) {
+        responseMsg.innerText = "Network Error: " + err.message;
+      }
+    });
+
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #2e8b57;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #0077cc;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out;
+      font-size: 1rem;
+    }
+
+    a:hover {
+      background-color: #005fa3;
+    }
+
+    a + a {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Login Successful</h1>
+  <p>Welcome back!</p>
+  <p>Your Roll Number: {{ rollNum }}</p>
+  <p>Your Full Name: {{ fullname }}</p>
+  <p>
+    <a href="/">Go to Home</a>
+    <a href="/logout">Logout</a>
+  </p>
+</body>
+</html>
