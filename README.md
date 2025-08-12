@@ -91,6 +91,76 @@ The project covers:
 
 ---
 
+
+## 🗄 Database Schema
+
+The database consists of **four main tables**:
+
+1. **countries**
+2. **states**
+3. **cities**
+4. **userData**
+
+The first three are for location hierarchy, while `userData` stores student registration details.
+
+---
+
+### Table Details
+
+#### `countries`
+| Column | Type        | Constraints |
+|--------|-------------|-------------|
+| id     | Integer     | Primary Key |
+| name   | String(100) | Not Null    |
+
+#### `states`
+| Column     | Type        | Constraints                    |
+|------------|-------------|--------------------------------|
+| id         | Integer     | Primary Key                    |
+| name       | String(100) | Not Null                        |
+| country_id | Integer     | Foreign Key → `countries.id`   |
+
+#### `cities`
+| Column    | Type        | Constraints                  |
+|-----------|-------------|------------------------------|
+| id        | Integer     | Primary Key                  |
+| name      | String(100) | Not Null                      |
+| state_id  | Integer     | Foreign Key → `states.id`    |
+
+#### `userData`
+| Column     | Type         | Constraints                         |
+|------------|--------------|-------------------------------------|
+| rollNum    | Integer      | Primary Key                         |
+| fullname   | String(50)   |                                     |
+| fatherName | String(50)   |                                     |
+| dob        | Date         |                                     |
+| mobNum     | String(10)   | Unique                              |
+| emailID    | String(50)   | Unique                              |
+| password   | String(18)   |                                     |
+| gender     | String(10)   |                                     |
+| dept       | String(100)  | Stored as comma-separated values    |
+| course     | String(50)   |                                     |
+| content    | String(255)  | File path                           |
+| country    | Integer      | Foreign Key → `countries.id`        |
+| state      | Integer      | Foreign Key → `states.id`           |
+| city       | Integer      | Foreign Key → `cities.id`           |
+| address    | String(500)  |                                     |
+
+---
+
+## 📂 `sql/` Folder
+
+To make setup easier, a **`sql/`** directory is included in the project.  
+It contains SQL dump files for **countries**, **states**, and **cities** so you can quickly populate location data:
+
+
+**Usage** (MySQL example):
+```bash
+mysql -u your_user -p your_database < sql/countries.sql
+mysql -u your_user -p your_database < sql/states.sql
+mysql -u your_user -p your_database < sql/cities.sql
+
+
 ## 🛠 Installation & Running
 
 ### 1. Clone the repo
