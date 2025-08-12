@@ -171,16 +171,18 @@ cd student-reg-login
 ### 2. Setup virtual env
 python3 -m venv venv
 source venv/bin/activate
+
+### 3. Install Dependencies 
 pip install -r requirements.txt
 
-4. Configure database
+### 4. Configure database
 Update your MySQL credentials in database.py:
 URL_DATABASE = "mysql+mysqlconnector://fastapi_user:supersecret@localhost/regis_db?charset=utf8mb4"
 Create the database:
 CREATE DATABASE regis_db;
 
 
-5. Run server
+### 5. Run server
 uvicorn main:app --reload
 Open http://127.0.0.1:8000
 
